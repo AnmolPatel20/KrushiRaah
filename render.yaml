@@ -13,11 +13,11 @@ services:
         sync: false
       - key: AGNMARKET_API_KEY
         sync: false
-  - type: static
+  - type: static_site
     name: krushiraah-frontend
     plan: free
     buildCommand: npm ci && npm run build
-    staticPublishPath: frontend/build
+    publishPath: frontend/build
     rootDir: frontend
     envVars:
       - key: REACT_APP_API_URL
@@ -25,4 +25,5 @@ services:
           type: web
           name: krushiraah-backend
           property: host
+
 

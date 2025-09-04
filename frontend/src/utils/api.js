@@ -12,3 +12,4 @@ export const apiUrl = (path) => {
 
 export default apiUrl;
 
+
