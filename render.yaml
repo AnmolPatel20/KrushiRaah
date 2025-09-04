@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: krushiraah-backend
+    env: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --preload --workers=2 --timeout 120
+    autoDeploy: true
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENWEATHER_API_KEY
+        sync: false
+      - key: AGNMARKET_API_KEY
+        sync: false
+
+  - type: static_site
+    name: krushiraah-frontend
+    plan: free
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    publishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: krushiraah-backend
+          property: url
+
